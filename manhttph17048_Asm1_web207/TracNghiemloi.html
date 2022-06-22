@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracnghiem</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome-free-6.0.0-beta3-web/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="container-fluid">
+       
+        <nav class="  navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+            <div class="container-fluid">
+              <!-- <a class="navbar-brand" href="#">Trang chủ</a> -->
+             
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+                      </li>
+                  <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="GioiThieu.html"><i class="fas fa-list"></i> Giới thiệu</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="lienhe.html"><i class="fas fa-phone"></i> Liên hệ</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="GopY.html"> <i class="fas fa-envelope-square"></i>  Góp ý</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="HoiDap.html"><i class="fas fa-question"></i> Hỏi đáp</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                     <i class="fas fa-user"></i> Tài khoản
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#login">Đăng nhập</a></li>
+                      <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#register">Đăng ký</a></li>
+                      <li><a class="dropdown-item" href="#">Quên mật khẩu</a></li>
+                      <hr>
+                      <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                      <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePassword">Đổi mật khẩu</a></li>
+                      <li><a class="dropdown-item" href="#"  data-bs-toggle="modal" data-bs-target="#updateInfo">Cập nhật hồ sơ</a></li>
+                    
+                    </ul> 
+                  </li>
+                </ul>
+              </div>
+              
+                  <li class="nav-link disabled" href="#" >English</li>
+                  <li class="nav-link disabled" href="#">Tiếng Việt</li>
+                 
+            </div>
+
+        </nav>
+
+
+        <!-- tìm -->
+        <div class="row">
+          <article class="col-12 col-md-9 " style="height: 100%;">
+             
+                 <div class="col-md-9" ng-app="my_Quiz" ng-controller="quizz">
+                  <div class="row text-center"><h2><span id="sophut"></span>:<span id="sogiay"></span></h2></div>
+                  <div class="card mt-1" ng-repeat="question in list_question | limitTo : 1 : batdau">
+                    <div>Tự động nộp bài sau: <span id="time_quiz"> 15:00</span></div>
+                      <div class="card-header">
+                          <div class="row card-title">
+                              <div class="col-7 col-sm-7 col-md-9">
+                                  <h5 class="pt-3"> {{monhoc.name}}</h5>
+                              </div>
+                              <div class="col-7 col-sm-7 col-md-3">
+                                  <p class="pt-3 fw-20px fw-bold">Điểm hiện tại : {{student.mark}}</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <p class="text-star fw-bold">{{batdau + 1}}. {{question.Text}}?
+                          </p>
+                          <hr>
+                          <div class="form-check" ng-repeat="answer in question.Answers">
+                              <input type="radio" name="chon" ng-model="ketqua[batdau].answer" id="{{answer.id}}" ng-click="check()" class="" value="{{answer.id}}">
+                              <label class="form-check-lable" for="{{answer.id}}">{{answer.Text}}</label>
+                          </div>
+                      </div>
+                      <div class="row card-footer">
+                          <div class="col-sm-5 col-md-6 mb-2 mt-2 ">
+                          <div class="row">
+                             <div class="col-8">
+                              <a class="btn btn-primary fw-bold" href="" ng-click="chamdiem()" ng-show="nopbai">Nộp bài</a> 
+                              <a class="btn btn-primary fw-bold" href="" ng-click="Next()" ng-show="!nopbai">Câu sau</a> 
+                              <span class="alert alert-{{thongbao}} col-6">{{message}}</span>
+                             </div>
+                           
+                          </div>
+                              </div>
+                          
+                          <div class="col-sm-6 col-md-6">
+                              <div class="row mt-2">
+                                  <div class="col-md-6"></div>
+                                 <div class="col-md-6">
+                                  <button class="btn btn-primary fw-bold" data-bs-target="#exampleModal" data-bs-toggle="modal">Kết thúc </button>
+                                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            Bạn có muốn kết thúc bài kiểm tra ?
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                            <a  class="btn btn-primary" href="#KetQua" ng-click="xacnhan()">Xác nhận</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                  </div>
+                 <nav aria-label="Page navigation example">
+                  <ul class="pagination  justify-content-center mt-4  col-12">
+                    <li class="page-item">
+                      <a class="page-link text-black" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"><a class="page-link text-black" href="#"><</a></li>
+                    <li class="page-item"><a class="page-link text-black" href="#">></a></li>
+                    <li class="page-item">
+                      <a class="page-link text-black" href="#" aria-label="Next" >
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                   </ul>
+                  </nav>
+           </article>
+       </div>
+              
+              <footer class="bg-dark " style="margin-top: 250px;">
+                <div style="background-color: orange; height: 5px;"></div>
+                <div class="row">
+                  <div class="col-md-4 col-xs-12" colspan ="6">
+                    <img src="images/logoft.png" alt="" class=" mt-2 offset-2">
+                    <div class="row">
+                      <a class="nav-link offset-3 col-3" href="#"><i class="fab fa-facebook-square"></i> </a>
+                      <a class="nav-link col-3" href="#"><i class="fab fa-youtube"></i> </a>
+                    </div>
+
+                  </div>
+                  <div class="col-md-8 col-xs-12" >
+                    <div class="text-white mt-2 fs-4 fw-bold"> THÔNG TIN LIÊN HỆ </div>
+                    <div class="text-white mt-1 ">Trụ sở chính Tòa nhà FPT Polytechnic, Phố Trịnh Văn Bô, Nam Từ Liêm, Hà Nội</div>
+                    <div class="text-warning mt-3">Cơ sở Hà Nội</div>
+                    <div class="text-white mt-1 ">Tòa nhà FPT Polytechnic, Phố Trịnh Văn Bô, Nam Từ Liêm, Hà Nội</div>
+                    <div class="text-white mt-1 ">(024) 7300 1955</div>  
+                  </div>
+                </div>
+              </footer>
+         <!-- login -->
+    <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body bg-danger">
+            <div class="row">
+              <h2 class="text-center mb-3 text-white col-11" id="exampleModalLabel">Đăng nhập</h2>
+              <button type="button" class="btn-close col" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <img src="images/NpqD4_ee_400x400.jpg"  class="img-fluid" alt="">
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="row mt-3">
+                      <div class="col-4">
+                          <h4 class="mt-1 text-white">Tài Khoản</h4>
+                      </div>
+                      <div class="col">           
+                          <input type="text" class="form-control">   
+                      </div>  
+                  </div>
+                  <div class="row mt-3">
+                      <div class="col-4">
+                          <h4 class="mt-1 text-white">Mật khẩu</h4>
+                      </div>
+                      <div class="col">           
+                          <input type="password" class="form-control">   
+                      </div>  
+                  </div>
+                  <div class="row mt-5 px-2">
+                      <button class="form-control text-danger" >Đăng nhập</button>
+                  </div>
+                  <div class="row">
+                      <p class="text-center mt-3 text-light">OR</p>
+                      <p class="text-center mt-2 text-light">Fast Signup With Your Favourite Social Profile</p>
+                      <ul class="nav justify-content-center ">
+                          <li class="nav-item">
+                            <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-youtube"></i></a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-facebook-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-google"></i></a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-twitter"></i></a>
+                            </li>
+                          
+                        </ul>
+                  </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    
+    <!--Registration-->
+    <div class="modal fade" id="register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body" style="background-color: orange;">
+            <div class="row">
+              <h2 class="text-center mb-3 text-white col-11" id="exampleModalLabel">Đăng kí</h2>
+              <button type="button" class="btn-close col" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="row">
+                <!-- <div class="col-md-6 col-12">
+                    <img src="images/bn.png"  class="img-fluid" alt="">
+                </div> -->
+                <div class="col-md-12 col-12">
+                  <div class="row mt-3">
+                      <div class="col-4">
+                          <h5 class="mt-2 text-white">Tài Khoản</h5>
+                      </div>
+                      <div class="col">           
+                          <input type="text" class="form-control">   
+                      </div>  
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-4">
+                        <h5 class="mt-1 text-white">Email</h5>
+                    </div>
+                    <div class="col">           
+                        <input type="text" placeholder="Name@gmail.com" class="form-control">   
+                    </div>  
+                </div>
+                  <div class="row mt-3">
+                      <div class="col-4">
+                          <h5 class="mt-1 text-white">Mật khẩu</h5>
+                      </div>
+                      <div class="col">           
+                          <input type="text" class="form-control">   
+                      </div>  
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-4">
+                        <h5 class="mt-1 text-white">Nhập lại mật khẩu</h5>
+                    </div>
+                    <div class="col">           
+                        <input type="text" placeholder="Nhập lại mật khẩu"class="form-control">   
+                    </div>  
+                </div>
+                <div class="row mt-3">
+                  <h5 class="mt-2 text-white col-3">Giới tính</h5>
+
+                  <div class="col-2 offset-1">
+                    <div class="mt-2">
+                      <input class="" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> Nam
+
+                  </div>
+                  </div>
+                  <div class="col  ">
+                    <div class="mt-2">
+                      <input class="" type="radio" name="flexRadioDefault" id="flexRadioDefault2">Nữ
+
+                  </div>
+                </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <h5 class="mt-2 text-white">Ngày sinh</h5>
+                    <div class="input-group date" id="datepicker">
+                        <input type="text" class="form-control" placeholder="dd/MM/YYYY">
+                        <span class="input-group-append">
+                        <span class="input-group-text bg-white d-block">
+                        <i class="fa fa-calendar"></i>
+                        </span>
+                        </span>
+                    </div>
+                </div>    
+                </div>
+                  <div class="row mt-5 px-2">
+                      <button class="form-control" style="color: orange;">Đăng kí</button>
+                  </div>
+                  <div class="row">
+                      <p class="text-center mt-3 text-secondary">OR</p>
+                      <p class="text-center mt-2 text-secondary">Fast Register With Your Favourite Social Profile</p>
+                      <ul class="nav justify-content-center ">
+                          <li class="nav-item">
+                            <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-youtube"></i></a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-facebook-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-google"></i></a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-twitter"></i></a>
+                            </li>
+                          
+                        </ul>
+                  </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div> 
+    <!--change Password-->   
+    <div class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-body bg-danger">
+            <div class="row">
+              <h2 class="text-center mb-3 text-white col-11" id="exampleModalLabel">Thay đổi mật khẩu</h2>
+              <button type="button" class="btn-close col" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <img src="images/NpqD4_ee_400x400.jpg"  class="img-fluid" alt="">
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="row mt-3">
+                      <div class="col-4">
+                          <h4 class="mt-1 text-white">Mật khẩu cũ</h4>
+                      </div>
+                      <div class="col">           
+                          <input type="text" class="form-control" placeholder="mật khẩu cũ">   
+                      </div>  
+                  </div>
+                  <div class="row mt-3">
+                      <div class="col-4">
+                          <h4 class="mt-1 text-white">Mật khẩu mới</h4>
+                      </div>
+                      <div class="col">           
+                          <input type="password" class="form-control" placeholder="Mật khẩu mới">   
+                      </div>  
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-4">
+                        <h4 class="mt-1 text-white">Nhập lại mật khẩu mới</h4>
+                    </div>
+                    <div class="col">           
+                        <input type="password" class="form-control" placeholder="Mật khẩu mới">   
+                    </div>  
+                </div>
+                  <div class="row mt-5 px-2">
+                      <button class="form-control text-danger" >Đổi mật khẩu</button>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+
+    <!--INFO-->
+    <div class="modal fade" id="updateInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-body" style="background-color: orange;">
+            <div class="row">
+              <h2 class="text-center mb-3 text-white col-11" id="exampleModalLabel">Cập nhật hồ sơ</h2>
+              <button type="button" class="btn-close col" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="row">
+                <!-- <div class="col-md-6 col-12">
+                    <img src="images/bn.png"  class="img-fluid" alt="">
+                </div> -->
+                <div class="col-md-12 col-12">
+
+                  <div class="row mt-3">
+                    <div class="col-4">
+                        <h5 class="mt-1 text-white">Email</h5>
+                    </div>
+                    <div class="col">           
+                        <input type="text" placeholder="Name@gmail.com" class="form-control">   
+                    </div>  
+                </div>
+                  <div class="row mt-3">
+                      <div class="col-4">
+                          <h5 class="mt-1 text-white">Địa chỉ</h5>
+                      </div>
+                      <div class="col">           
+                          <input type="password" class="form-control">   
+                      </div>  
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-4">
+                        <h5 class="mt-1 text-white">Số điện thoại</h5>
+                    </div>
+                    <div class="col">           
+                        <input type="text" class="form-control">   
+                    </div>  
+                </div>
+                <div class="row mt-3">
+                  <h5 class="mt-2 text-white col-3">Giới tính</h5>
+
+                  <div class="col-2 offset-1">
+                    <div class="mt-2">
+                      <input class="" type="radio" name="flexRadioDefault" id="flexRadioDefault1"> Nam
+
+                  </div>
+                  </div>
+                  <div class="col  ">
+                    <div class="mt-2">
+                      <input class="" type="radio" name="flexRadioDefault" id="flexRadioDefault2">Nữ
+
+                  </div>
+                </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <h5 class="mt-2 text-white">Ngày sinh</h5>
+                    <div class="input-group date" id="datepicker">
+                        <input type="text" class="form-control" placeholder="dd/MM/YYYY">
+                        <span class="input-group-append">
+                        <span class="input-group-text bg-white d-block">
+                        <i class="fa fa-calendar"></i>
+                        </span>
+                        </span>
+                    </div>
+                </div>    
+                </div>
+                  <div class="row mt-5 px-2">
+                      <button class="form-control" style="color: orange;">Sửa đổi tài khoản</button>
+                  </div>
+                  <div class="row">
+                      <p class="text-center mt-3 text-secondary">OR</p>
+                      <p class="text-center mt-2 text-secondary">Fast Register With Your Favourite Social Profile</p>
+                      <ul class="nav justify-content-center ">
+                          <li class="nav-item">
+                            <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-youtube"></i></a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-facebook-square"></i></a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-google"></i></a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link active fs-2" aria-current="page" href="#" style="color: white;"><i class="fab fa-twitter"></i></a>
+                            </li>
+                          
+                        </ul>
+                  </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div> 
+        
+    </div>
+    
+    <script src="quiz 2.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
